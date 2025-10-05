@@ -1,0 +1,170 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definition of the design system. All colors, gradients, fonts, etc should be defined here. 
+All colors MUST be HSL.
+*/
+
+@layer base {
+  :root {
+    --background: 0 0% 0%;
+    --foreground: 120 100% 50%;
+
+    --card: 0 0% 5%;
+    --card-foreground: 120 100% 50%;
+
+    --popover: 0 0% 5%;
+    --popover-foreground: 120 100% 50%;
+
+    --primary: 120 100% 50%;
+    --primary-foreground: 0 0% 0%;
+
+    --secondary: 120 100% 25%;
+    --secondary-foreground: 120 100% 90%;
+
+    --muted: 120 30% 15%;
+    --muted-foreground: 120 50% 40%;
+
+    --accent: 120 100% 40%;
+    --accent-foreground: 0 0% 0%;
+
+    --destructive: 0 100% 50%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 120 50% 20%;
+    --input: 120 50% 15%;
+    --ring: 120 100% 50%;
+
+    --radius: 0rem;
+
+    /* Terminal specific colors */
+    --terminal-bg: 0 0% 0%;
+    --terminal-text: 120 100% 50%;
+    --terminal-error: 0 100% 50%;
+    --terminal-glow: 120 100% 50%;
+    --terminal-dim: 120 50% 30%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Courier New', 'Consolas', 'Monaco', monospace;
+  }
+
+  /* Cursor blink animation */
+  @keyframes blink {
+    0%, 49% { opacity: 1; }
+    50%, 100% { opacity: 0; }
+  }
+
+  .cursor-blink {
+    animation: blink 1s infinite;
+  }
+
+  /* Square block terminal cursor */
+  .terminal-cursor {
+    display: inline-block;
+    width: 0.6ch;
+    height: 1em;
+    background: hsl(var(--terminal-text));
+    animation: blink 1s steps(1, end) infinite;
+    vertical-align: bottom;
+    margin-left: 2px;
+    position: relative;
+    top: -5px;
+  }
+
+  /* Glitch effect for photo */
+  @keyframes glitch {
+    0% {
+      filter: hue-rotate(0deg);
+    }
+    20% {
+      filter: hue-rotate(5deg) brightness(1.1);
+    }
+    40% {
+      filter: hue-rotate(-5deg);
+    }
+    60% {
+      filter: hue-rotate(5deg) contrast(1.1);
+    }
+    80% {
+      filter: hue-rotate(-5deg);
+    }
+    100% {
+      filter: hue-rotate(0deg);
+    }
+  }
+
+  .glitch-effect {
+    animation: glitch 8s infinite;
+  }
+
+  /* Terminal glow effect */
+  .terminal-glow {
+    text-shadow: 0 0 5px hsl(var(--terminal-glow) / 0.5),
+                 0 0 10px hsl(var(--terminal-glow) / 0.3),
+                 0 0 15px hsl(var(--terminal-glow) / 0.2);
+  }
+
+  /* Scanline effect */
+  @keyframes scanline {
+    0% {
+      transform: translateY(-100%);
+    }
+    100% {
+      transform: translateY(100%);
+    }
+  }
+
+  .scanline {
+    position: relative;
+    overflow: hidden;
+  }
+
+  .scanline::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(transparent, hsl(var(--terminal-glow) / 0.1), transparent);
+    animation: scanline 8s linear infinite;
+    pointer-events: none;
+  }
+
+  /* Custom scrollbar */
+  ::-webkit-scrollbar {
+    width: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: hsl(var(--terminal-bg));
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: hsl(var(--terminal-text) / 0.3);
+    border-radius: 0;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: hsl(var(--terminal-text) / 0.5);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
